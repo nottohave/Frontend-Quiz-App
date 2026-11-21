@@ -12,41 +12,75 @@
 
   <!-- Quiz menu start -->
   <header>
+    <nav>
+     <img src="./starter-code/assets/images/icon-moon-light.svg" alt="icon-moon-light" srcset="">
+     <button></button>
+     <img src="./starter-code/assets/images/icon-moon-dark.svg" alt="icon-moon-dark" srcset="">
+    </nav>
   </header>
   <main>
     <section>
-        <h1>Welcome to the Frontend Quiz!
-    Pick a subject to get started.</h1>
-  HTML
-  CSS
-  JavaScript
-  Accessibility
-
-  <!-- Quiz menu end -->
+      <section class="title-container">
+        <h1>Welcome to the <br>Frontend Quiz!</h1>
+        <div>Pick a subject to get started.</div>
+      </section>
+    <!-- Quiz menu start -->
+      <section class="subject-container">
+        <div class="HTML">HTML</div>
+        <div class="SSS">CSS</div>
+        <div class="Javascript">JavaScript</div>
+        <div class="Accessibility">Accessibility</div>
+      </section>
+    <!-- Quiz menu end -->
   </section>
 
     <section class="question">
       <!-- Quiz question start -->
 
-  Question <!-- number --> of 10
+      <section>
+        <span>Question <!-- number --> of 10</span>
+        <div class="question-content">Which of the color
+         contrast ratios defines the minimum WCAG 2.1 Level AA requirement 
+         for normal text?</div>
+      </section>
 
-  A
-  B
-  C
-  D
+      <div class="answer-a">
+        <label for="input-a" class="label-a">A</label>
+        <div class="answer-a-content">4.5 : 1</div>
+      </div>  
+      <div class="answer-b">
+        <label for="input-b" class="label-b">B</label>
+        <div class="answer-b-content">3 : 1</div>
+      </div>  
+      <div class="answer-c">
+        <label for="input-c" class="label-c">C</label>
+        <div class="answer-c-content">2.5 : 1</div>
+      </div>  
+      <div class="answer-d">
+        <label for="input-d" class="label-d">D</label>
+        <div class="answer-d-content">5.1 : 1</div>
+      </div>  
 
-  Submit answer
-
-  <!-- Quiz question end -->
-
+      <button class="submit-answer">Submit answer</button>
+      <!-- Quiz question end -->
     </section>
-    <section class="quiz-completed">
+
+    
   <!-- Quiz completed start -->
+  <section class="quiz-completed">
+    <section class="title">
+        Quiz completed
+      <br>You scored...
+    </section>
 
-  Quiz completed
-  You scored...
-
-  <!-- score --> out of 10
+    <section class="your-number">
+      <div class="quiz-type">
+        <img src="./starter-code/assets/images/icon-accessibility.svg" alt="icon-accessibility" srcset="">
+        Accessibility
+      </div>
+      <div class="score-number"><!-- score --> <br>out of 10</div>
+      <button class="play-again-btn">Play Again</button>
+    </section>
 
   <!-- Quiz completed end -->
 
