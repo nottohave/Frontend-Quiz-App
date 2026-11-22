@@ -52,6 +52,9 @@
         <div class="question-content">Which of these color
          contrast ratios defines the minimum WCAG 2.1 Level AA requirement 
          for normal text?</div>
+         <div id="slider-answers">
+          <input type="range" name="volumn" id="volume" min="0" max="10" step="1">
+         </div>
       </section>
       <section class="answer-container">
         <div class="answer-a">
@@ -70,7 +73,7 @@
           <label for="input-d" class="label-d">D</label>
           <div class="answer-d-content">5.1 : 1</div>
         </div>  
-        <button class="submit-answer">Submit answer</button>
+        <button class="submit-answer">Next Question</button>
         <!-- Quiz question end -->
 
       </section>
@@ -82,17 +85,18 @@
   <section class="quiz-completed">
     <section class="title">
         Quiz completed
-      <br>You scored...
+      <div>You scored...</div>
     </section>
 
-    <section class="your-number">
+    <section class="score-board">
       <div class="quiz-type">
         <img src="./starter-code/assets/images/icon-accessibility.svg" alt="icon-accessibility" srcset="">
         Accessibility
       </div>
-      <div class="score-number"><!-- score --> <br>out of 10</div>
-      <button class="play-again-btn">Play Again</button>
+      <h2 class="score-number"><!-- score -->8 <span>out of 10</span></h2>
     </section>
+    <button class="play-again-btn">Play Again</button>
+
 
   <!-- Quiz completed end -->
 
