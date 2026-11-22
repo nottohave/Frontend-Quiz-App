@@ -14,27 +14,32 @@
   <header>
     <nav>
       <section class="accessibility">
-        <img src="./starter-code/assets/images/icon-accessibility.svg" alt="icon-accessibility">
+        <img class="accessibility-img" src="./starter-code/assets/images/icon-accessibility.svg" alt="icon-accessibility">
         <h2>Accessibility</h2>
       </section>
-
-     <img src="./starter-code/assets/images/icon-moon-light.svg" alt="icon-moon-light" srcset="">
-     <button></button>
-     <img src="./starter-code/assets/images/icon-moon-dark.svg" alt="icon-moon-dark" srcset="">
+      <section class="theme-device">
+        <img src="./starter-code/assets/images/icon-sun-light.svg" alt="icon-moon-light" srcset="">
+        <button></button>
+        <img src="./starter-code/assets/images/icon-moon-dark.svg" alt="icon-moon-dark" srcset="">
+      </section>
     </nav>
   </header>
   <main>
-    <section>
+    <section class="page-1">
       <section class="title-container">
-        <h1>Welcome to the <br>Frontend Quiz!</h1>
+        <h1>Welcome to the <span>Frontend Quiz!</span></h1>
         <div>Pick a subject to get started.</div>
       </section>
     <!-- Quiz menu start -->
       <section class="subject-container">
-        <div class="HTML">HTML</div>
-        <div class="SSS">CSS</div>
-        <div class="Javascript">JavaScript</div>
-        <div class="Accessibility">Accessibility</div>
+        <div class="HTML">
+          <img class="HTML-icon" src="./starter-code/assets/images/icon-html.svg" alt="icon-html">HTML</div>
+        <div class="CSS">
+          <img class="CSS-icon" src="./starter-code/assets/images/icon-css.svg" alt="icon-css">CSS</div>
+        <div class="Javascript">
+          <img class="Javascript-icon" src="./starter-code/assets/images/icon-js.svg" alt="icon-js">JavaScript</div>
+        <div class="Accessibility">
+          <img class="Accessibility-icon" src="./starter-code/assets/images/icon-accessibility.svg" alt="icon-accessibility">Accessibility</div>
       </section>
     <!-- Quiz menu end -->
   </section>
@@ -42,8 +47,8 @@
     <section class="question">
       <!-- Quiz question start -->
 
-      <section>
-        <span>Question <!-- number --> of 10</span>
+      <section class="question-container">
+        <div class="question-number">Question <span class="number"><!-- number -->1</span> of 10</div>
         <div class="question-content">Which of the color
          contrast ratios defines the minimum WCAG 2.1 Level AA requirement 
          for normal text?</div>
