@@ -11,8 +11,19 @@ const title = document.querySelector(".title");
 const score_board_tablet_mobile = document.querySelector(".score-board-tablet-mobile");
 const quiz_type = document.querySelector(".quiz-type");
 const score_number = document.querySelector(".score-number");
+const score_number_desktop = document.querySelector(".score-number-desktop");
 const the_score = document.querySelector(".the-score");
+const question_page = document.querySelector(".question");
+const page_1 = document.querySelector(".page-1")
+const quizzes_type_name = document.querySelector(".quiz-type-name");
+const quizzes_type_img = document.querySelector(".quiz-type-img")
+const quizzes_type_name_mobile = document.querySelector(".quiz-type-name-mobile");
+const quizzes_type_img_mobile = document.querySelector(".quiz-type-img-mobile");
+const play_again_btn = document.querySelector(".play-again-btn-tablet-mobile");
+const play_again_btn_desktop = document.querySelector(".play-again-btn");
+const quiz_completed = document.querySelector(".quiz-completed")
 
+// Color theme light and dark mode
 theme_btn.addEventListener("change", (e) => {
  if (e.target.checked) {
   body.style.background = "url('/starter-code/assets/images/pattern-background-mobile-dark.svg') no-repeat";
@@ -56,6 +67,7 @@ const answer_c_content = document.querySelector(".answer-c-content");
 const answer_d_content = document.querySelector(".answer-d-content");
 const nextButton = document.querySelector(".submit-answer");
 
+const play_again_mobile = document.querySelector(".play-again-btn-tablet-mobile")
 const css = document.querySelector(".CSS")
 
 let currentQuestionIndex = 0;
@@ -66,14 +78,8 @@ function startQuiz() {
     currentQuestionIndex = 0;
     score = 0;
     nextButton.innerHTML = "Next";
-    console.log("function works")
-    console.log("user enter a subject")
-    console.log("html")
     html.addEventListener("click", htmlQuiz)
     css.addEventListener("click", cssQuiz);
-    console.log("css")
-    console.log("js")
-    console.log("accessibility")
 }
 
 
@@ -84,18 +90,30 @@ function htmlQuiz() {
     return response.json();
     }).then((data) => {
         console.log("htmlQuiz") 
-        resetState()
-        const data_file = data
-        number.innerHTML = currentQuestionIndex + 1;
-        question_content.innerHTML = data.quizzes[currentQuestionIndex].questions[currentQuestionIndex].question
+
+
         
-        data.quizzes[currentQuestionIndex].questions[currentQuestionIndex].options.forEach(answer => {
-            const button = document.createElement("button");
-            button.innerHTML = answer
-            button.classList.add("btn");
-            answer_container.appendChild(button);
-            
-            });
+        showQuestion()
+        function showQuestion(){
+            resetState()
+            const data_file = data;
+            const question_content_data = data_file.quizzes[0].questions[currentQuestionIndex].question
+            console.log(data_file.quizzes[0].questions[currentQuestionIndex])
+            number.innerHTML = currentQuestionIndex + 1;
+            question_content.textContent = question_content_data;
+        
+            data_file.quizzes[0].questions[currentQuestionIndex].options.forEach(answer => {
+                const button = document.createElement("button");
+                button.textContent = answer;
+                button.classList.add("btn");
+                answer_container.appendChild(button);
+                if (answer.correct == data.quizzes[0].questions[currentQuestionIndex].answer) {
+                    console.log("run this line for correct answer")
+                    console.log(correct)
+                }
+                button.addEventListener("click", selectAnswer)
+                });
+        }
 
         function resetState() {
             nextButton.style.display = "none";
@@ -104,42 +122,167 @@ function htmlQuiz() {
             }
         }
 
-        });
+        function selectAnswer(e) {
+            const selectBtn = e.target;
+            const isCorrect = selectBtn.textContent === data.quizzes[0].questions[currentQuestionIndex].answer
 
-// html.addEventListener("click", (e) => {
- 
-//  fetch('/starter-code/data.json').then((response) => {
-//  if(!response.ok) return console.log('Opps! Something went wrong.')
+            if (isCorrect) {
+                selectBtn.classList.add("correct")
+                score++
+            } else {
+                selectBtn.classList.add("incorrect")
+            }
+            Array.from(answer_container.children).forEach(button => {
+                if (button.innerHTML === data.quizzes[0].questions[currentQuestionIndex].answer) {
+                    button.classList.add("correct");
+                }
+                button.disabled = true;
+            });
+            answer_container.appendChild(nextButton);
+            nextButton.style.display = "block";
+        }
 
-//  return response.json();
-//  }).then((data) => {
-//  console.log(data.quizzes[0]);
-//  console.log(data.quizzes[0].questions);
-//  number.innerHTML = "1";
-//  console.log(number.innerHTML);
-// console.log(data.quizzes[0].questions[0].options)
-//  question_content.innerHTML = data.quizzes[0].questions[0].question;
-//  answer_a_content.innerHTML = data.quizzes[0].questions[0].options[0];
-//  answer_b_content.innerHTML = data.quizzes[0].questions[0].options[1];
-//  answer_c_content.innerHTML = data.quizzes[0].questions[0].options[2];
-//  answer_d_content.innerHTML = data.quizzes[0].questions[0].options[3];
+            function showScore() {
+                resetState();
+                score_number.textContent =  `${score} out of ${questions.length}!`
+                score_number_desktop.textContent =  `${score} out of ${questions.length}!`
 
+                quizzes_type_name.textContent = `HTML`;
+                quizzes_type_img.src = "./starter-code/assets/images/icon-html.svg"
+                quizzes_type_img_mobile.src = "./starter-code/assets/images/icon-html.svg"
+                quizzes_type_name_mobile.textContent = `HTML`;
+            }
 
+        function handleNextButton(){
+            currentQuestionIndex++;
 
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showScore();
+            } 
+        }
+        const questions = data.quizzes[0].questions
 
+        nextButton.addEventListener("click", ()=>{
+            if (currentQuestionIndex < questions.length) {
+                handleNextButton()
+            } else {
+                startQuiz();
+            }
+        })
 
-    
-    // showQuestion()
-    // resetState()
-    // selectAnswer()
-    // showScore()
-    // handleNextButton()
-    // nextButton.addEventListener
+        play_again_btn.addEventListener("click", ()=> {
+            console.log("Restart the quiz")
+            // page_1.style.display = "flex";
+            // currentQuestionIndex = 0;
+            // score = 0;
+            window.location.reload();
+        })
+
+    });
 
 }
 
 function cssQuiz() {
-    console.log("CSS quiz")
+     fetch('/starter-code/data.json').then((response) => {
+    if(!response.ok) return console.log('Opps! Something went wrong.')
+
+    return response.json();
+    }).then((data) => {
+        console.log("htmlQuiz") 
+
+
+        
+        showQuestion()
+        function showQuestion(){
+            resetState()
+            const data_file = data;
+            const question_content_data = data_file.quizzes[1].questions[currentQuestionIndex].question
+            console.log(data_file.quizzes[1].questions[currentQuestionIndex])
+            number.innerHTML = currentQuestionIndex + 1;
+            question_content.textContent = question_content_data;
+        
+            data_file.quizzes[1].questions[currentQuestionIndex].options.forEach(answer => {
+                const button = document.createElement("button");
+                button.textContent = answer;
+                button.classList.add("btn");
+                answer_container.appendChild(button);
+                if (answer.correct == data.quizzes[1].questions[currentQuestionIndex].answer) {
+                    console.log("run this line for correct answer")
+                    console.log(correct)
+                }
+                button.addEventListener("click", selectAnswer)
+                });
+        }
+
+        function resetState() {
+            nextButton.style.display = "none";
+            while(answer_container.firstChild) {
+                answer_container.removeChild(answer_container.firstChild)
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectBtn = e.target;
+            const isCorrect = selectBtn.textContent === data.quizzes[1].questions[currentQuestionIndex].answer
+
+            if (isCorrect) {
+                selectBtn.classList.add("correct")
+                score++
+            } else {
+                selectBtn.classList.add("incorrect")
+            }
+            Array.from(answer_container.children).forEach(button => {
+                if (button.innerHTML === data.quizzes[1].questions[currentQuestionIndex].answer) {
+                    button.classList.add("correct");
+                }
+                button.disabled = true;
+            });
+            answer_container.appendChild(nextButton);
+            nextButton.style.display = "block";
+        }
+
+            function showScore() {
+                resetState();
+                score_number.textContent =  `${score} out of ${questions.length}!`
+                score_number_desktop.textContent =  `${score} out of ${questions.length}!`
+
+                quizzes_type_name.textContent = `CSS`;
+                quizzes_type_img.src = "./starter-code/assets/images/icon-css.svg"
+                quizzes_type_img_mobile.src = "./starter-code/assets/images/icon-css.svg"
+                quizzes_type_name_mobile.textContent = `CSS`;
+            }
+
+        function handleNextButton(){
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showScore();
+            } 
+        }
+        const questions = data.quizzes[0].questions
+
+        nextButton.addEventListener("click", ()=>{
+            if (currentQuestionIndex < questions.length) {
+                handleNextButton()
+            } else {
+                startQuiz();
+            }
+        })
+
+        play_again_btn.addEventListener("click", ()=> {
+            console.log("Restart the quiz")
+            // page_1.style.display = "flex";
+            // currentQuestionIndex = 0;
+            // score = 0;
+            window.location.reload();
+        })
+
+    });
+
 }
 
 
