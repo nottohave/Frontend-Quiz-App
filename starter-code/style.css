@@ -476,11 +476,13 @@
      font-size: 64px;
     }
 
-    .score-number {
+    .score-number,
+    .score-number-desktop {
      font-size: 144px;
     }
 
-    .score-number span {
+    .score-number span,
+    .the-score {
      font-size: 24px;
     }
 
