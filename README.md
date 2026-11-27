@@ -38,7 +38,10 @@ Users should be able to:
 
 ### Screenshot
 
-![](./Screenshot%202026-11-26%20at%2014-20-55%20Frontend%20Mentor%20Frontend%20quiz%20app.png)
+![](./Screenshot1.png)
+![](./Screenshot2.png)
+![](./Screenshot3.png)
+![](./Screenshot4.png)
 
 
 ### Links
