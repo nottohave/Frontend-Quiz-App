@@ -105,7 +105,7 @@ Use this section to outline areas that you want to continue focusing on in futur
 ### Useful resources
 
 - Search youtube videos on "frontend quiz app" then I watch the videos and follow their example. Then I implement it on the project.
-- [Create a toggle theme button](https://youtu.be/8aZ2vla5PYI?si=yeMA29LHtudx3atJ) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [Create a toggle theme button](https://youtu.be/8aZ2vla5PYI?si=yeMA29LHtudx3atJ) This video helps me on creating the toggle button for theme.
 
 
 ### AI Collaboration
