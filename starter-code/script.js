@@ -67,19 +67,28 @@ const answer_c_content = document.querySelector(".answer-c-content");
 const answer_d_content = document.querySelector(".answer-d-content");
 const nextButton = document.querySelector(".submit-answer");
 
-const play_again_mobile = document.querySelector(".play-again-btn-tablet-mobile")
 const css = document.querySelector(".CSS")
+
+const javascript = document.querySelector(".Javascript");
+const accessibility = document.querySelector(".Accessibility");
 
 let currentQuestionIndex = 0;
 let score = 0;
+
+page_1.style.display = "flex";
+question_page.style.display = "none";
+quiz_completed.style.display = "none"
+
 
 
 function startQuiz() {
     currentQuestionIndex = 0;
     score = 0;
     nextButton.innerHTML = "Next";
-    html.addEventListener("click", htmlQuiz)
+    html.addEventListener("click", htmlQuiz);
     css.addEventListener("click", cssQuiz);
+    javascript.addEventListener("click", javascriptQuiz);
+    accessibility.addEventListener("click", accessibilityQuiz);
 }
 
 
@@ -95,6 +104,9 @@ function htmlQuiz() {
         
         showQuestion()
         function showQuestion(){
+            page_1.style.display = "none";
+            quiz_completed.style.display = "none";
+            question_page.style.display = "flex";
             resetState()
             const data_file = data;
             const question_content_data = data_file.quizzes[0].questions[currentQuestionIndex].question
@@ -147,6 +159,8 @@ function htmlQuiz() {
                 score_number.textContent =  `${score} out of ${questions.length}!`
                 score_number_desktop.textContent =  `${score} out of ${questions.length}!`
 
+                quiz_completed.style.display = "flex"
+                question_page.style.display = "none";
                 quizzes_type_name.textContent = `HTML`;
                 quizzes_type_img.src = "./starter-code/assets/images/icon-html.svg"
                 quizzes_type_img_mobile.src = "./starter-code/assets/images/icon-html.svg"
@@ -179,6 +193,12 @@ function htmlQuiz() {
             // score = 0;
             window.location.reload();
         })
+        
+        play_again_btn_desktop.addEventListener("click", ()=> {
+            console.log("Desktop mode restart the quiz")
+            window.location.reload();
+        })
+        
 
     });
 
@@ -190,12 +210,14 @@ function cssQuiz() {
 
     return response.json();
     }).then((data) => {
-        console.log("htmlQuiz") 
+        console.log("CSSQuiz") 
 
-
-        
         showQuestion()
         function showQuestion(){
+            page_1.style.display = "none";
+            quiz_completed.style.display = "none";
+            question_page.style.display = "flex";
+
             resetState()
             const data_file = data;
             const question_content_data = data_file.quizzes[1].questions[currentQuestionIndex].question
@@ -248,6 +270,8 @@ function cssQuiz() {
                 score_number.textContent =  `${score} out of ${questions.length}!`
                 score_number_desktop.textContent =  `${score} out of ${questions.length}!`
 
+                quiz_completed.style.display = "flex"
+                question_page.style.display = "none";
                 quizzes_type_name.textContent = `CSS`;
                 quizzes_type_img.src = "./starter-code/assets/images/icon-css.svg"
                 quizzes_type_img_mobile.src = "./starter-code/assets/images/icon-css.svg"
@@ -263,7 +287,7 @@ function cssQuiz() {
                 showScore();
             } 
         }
-        const questions = data.quizzes[0].questions
+        const questions = data.quizzes[1].questions
 
         nextButton.addEventListener("click", ()=>{
             if (currentQuestionIndex < questions.length) {
@@ -275,15 +299,237 @@ function cssQuiz() {
 
         play_again_btn.addEventListener("click", ()=> {
             console.log("Restart the quiz")
-            // page_1.style.display = "flex";
-            // currentQuestionIndex = 0;
-            // score = 0;
+            window.location.reload();
+        })
+        
+        play_again_btn_desktop.addEventListener("click", ()=> {
+            console.log("Desktop mode restart the quiz")
+            window.location.reload();
+        })
+
+
+    });
+
+}
+
+
+
+function javascriptQuiz() {
+     fetch('/starter-code/data.json').then((response) => {
+    if(!response.ok) return console.log('Opps! Something went wrong.')
+
+    return response.json();
+    }).then((data) => {
+        console.log("JavascriptQuiz") 
+
+        showQuestion()
+        function showQuestion(){
+            page_1.style.display = "none";
+            quiz_completed.style.display = "none";
+            question_page.style.display = "flex";
+
+            resetState()
+            const data_file = data;
+            const question_content_data = data_file.quizzes[2].questions[currentQuestionIndex].question
+            console.log(data_file.quizzes[2].questions[currentQuestionIndex])
+            number.innerHTML = currentQuestionIndex + 1;
+            question_content.textContent = question_content_data;
+        
+            data_file.quizzes[2].questions[currentQuestionIndex].options.forEach(answer => {
+                const button = document.createElement("button");
+                button.textContent = answer;
+                button.classList.add("btn");
+                answer_container.appendChild(button);
+                if (answer.correct == data.quizzes[2].questions[currentQuestionIndex].answer) {
+                    console.log("run this line for correct answer")
+                    console.log(correct)
+                }
+                button.addEventListener("click", selectAnswer)
+                });
+        }
+
+        function resetState() {
+            nextButton.style.display = "none";
+            while(answer_container.firstChild) {
+                answer_container.removeChild(answer_container.firstChild)
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectBtn = e.target;
+            const isCorrect = selectBtn.textContent === data.quizzes[2].questions[currentQuestionIndex].answer
+
+            if (isCorrect) {
+                selectBtn.classList.add("correct")
+                score++
+            } else {
+                selectBtn.classList.add("incorrect")
+            }
+            Array.from(answer_container.children).forEach(button => {
+                if (button.innerHTML === data.quizzes[2].questions[currentQuestionIndex].answer) {
+                    button.classList.add("correct");
+                }
+                button.disabled = true;
+            });
+            answer_container.appendChild(nextButton);
+            nextButton.style.display = "block";
+        }
+
+            function showScore() {
+                resetState();
+                score_number.textContent =  `${score} out of ${questions.length}!`
+                score_number_desktop.textContent =  `${score} out of ${questions.length}!`
+
+                quiz_completed.style.display = "flex"
+                question_page.style.display = "none";
+                quizzes_type_name.textContent = `Javascript`;
+                quizzes_type_img.src = "./starter-code/assets/images/icon-js.svg"
+                quizzes_type_img_mobile.src = "./starter-code/assets/images/icon-js.svg"
+                quizzes_type_name_mobile.textContent = `Javascript`;
+            }
+
+        function handleNextButton(){
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showScore();
+            } 
+        }
+        const questions = data.quizzes[2].questions
+
+        nextButton.addEventListener("click", ()=>{
+            if (currentQuestionIndex < questions.length) {
+                handleNextButton()
+            } else {
+                startQuiz();
+            }
+        })
+
+        play_again_btn.addEventListener("click", ()=> {
+            console.log("Restart the quiz")
+            window.location.reload();
+        })
+
+        play_again_btn_desktop.addEventListener("click", ()=> {
+            console.log("Desktop mode restart the quiz")
+            window.location.reload();
+        })
+
+
+    });
+
+}
+
+
+function accessibilityQuiz() {
+     fetch('/starter-code/data.json').then((response) => {
+    if(!response.ok) return console.log('Opps! Something went wrong.')
+
+    return response.json();
+    }).then((data) => {
+        console.log("AccessibilityQuiz") 
+
+        showQuestion()
+        function showQuestion(){
+            page_1.style.display = "none";
+            quiz_completed.style.display = "none";
+            question_page.style.display = "flex";
+
+            resetState()
+            const data_file = data;
+            const question_content_data = data_file.quizzes[3].questions[currentQuestionIndex].question
+            console.log(data_file.quizzes[3].questions[currentQuestionIndex])
+            number.innerHTML = currentQuestionIndex + 1;
+            question_content.textContent = question_content_data;
+        
+            data_file.quizzes[3].questions[currentQuestionIndex].options.forEach(answer => {
+                const button = document.createElement("button");
+                button.textContent = answer;
+                button.classList.add("btn");
+                answer_container.appendChild(button);
+                if (answer.correct == data.quizzes[3].questions[currentQuestionIndex].answer) {
+                    console.log("run this line for correct answer")
+                    console.log(correct)
+                }
+                button.addEventListener("click", selectAnswer)
+                });
+        }
+
+        function resetState() {
+            nextButton.style.display = "none";
+            while(answer_container.firstChild) {
+                answer_container.removeChild(answer_container.firstChild)
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectBtn = e.target;
+            const isCorrect = selectBtn.textContent === data.quizzes[3].questions[currentQuestionIndex].answer
+
+            if (isCorrect) {
+                selectBtn.classList.add("correct")
+                score++
+            } else {
+                selectBtn.classList.add("incorrect")
+            }
+            Array.from(answer_container.children).forEach(button => {
+                if (button.innerHTML === data.quizzes[3].questions[currentQuestionIndex].answer) {
+                    button.classList.add("correct");
+                }
+                button.disabled = true;
+            });
+            answer_container.appendChild(nextButton);
+            nextButton.style.display = "block";
+        }
+
+            function showScore() {
+                resetState();
+                score_number.textContent =  `${score} out of ${questions.length}!`
+                score_number_desktop.textContent =  `${score} out of ${questions.length}!`
+
+                quiz_completed.style.display = "flex"
+                question_page.style.display = "none";
+                quizzes_type_name.textContent = `Accessibility`;
+                quizzes_type_img.src = "./starter-code/assets/images/icon-accessibility.svg"
+                quizzes_type_img_mobile.src = "./starter-code/assets/images/icon-accessibility.svg"
+                quizzes_type_name_mobile.textContent = `Accessibility`;
+            }
+
+        function handleNextButton(){
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showScore();
+            } 
+        }
+        const questions = data.quizzes[3].questions
+
+        nextButton.addEventListener("click", ()=>{
+            if (currentQuestionIndex < questions.length) {
+                handleNextButton()
+            } else {
+                startQuiz();
+            }
+        })
+
+        play_again_btn.addEventListener("click", ()=> {
+            console.log("Restart the quiz")
+            window.location.reload();
+        })
+
+        play_again_btn_desktop.addEventListener("click", ()=> {
+            console.log("Desktop mode restart the quiz")
             window.location.reload();
         })
 
     });
 
 }
+
 
 
 startQuiz()
