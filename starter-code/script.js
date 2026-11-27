@@ -93,7 +93,7 @@ function startQuiz() {
 
 
 function htmlQuiz() {
-     fetch('/starter-code/data.json').then((response) => {
+     fetch('./data.json').then((response) => {
     if(!response.ok) return console.log('Opps! Something went wrong.')
 
     return response.json();
